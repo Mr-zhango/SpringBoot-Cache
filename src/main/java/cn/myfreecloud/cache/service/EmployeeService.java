@@ -25,6 +25,11 @@ public class EmployeeService {
     // unless:和unless用法刚好相反
     // sync:是否使用异步模式
 
+
+    // SpringBoot 使用的默认缓存是 ConcurrentMapManager  --> ConcurrentMapCache 把数据保存在CurrentMap中
+    // 引入redis第三方中间件
+    //
+
     // 使用spEL表达式 指定使用参数的第一个参数作为key ==  key = "#p0"
     @Cacheable(/*value = {"emp"},*/ key = "#root.args[0]")
     public Employee getEmpById(Integer id) {
