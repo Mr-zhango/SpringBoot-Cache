@@ -18,6 +18,6 @@ public interface EmployeeMapper {
     @Delete("delete from employee where id = #{id}")
     public void deleteEmployee(Integer id);
 
-    @Select("select * from employee where lastName = #{lastName}")
+    @Select("select * from employee where last_name = #{lastName}")
     public Employee getEmployeeByLastName(String lastName);
 }

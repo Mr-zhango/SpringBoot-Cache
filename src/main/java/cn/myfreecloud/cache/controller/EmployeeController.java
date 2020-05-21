@@ -4,6 +4,7 @@ import cn.myfreecloud.cache.bean.Employee;
 import cn.myfreecloud.cache.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,5 +26,11 @@ public class EmployeeController {
     @GetMapping("/deleteEmployee")
     public void deleteEmployee(Integer id) {
         employeeService.deleteEmpById(id);
+    }
+
+    @GetMapping("/getEmpByLastName/{lastName}")
+    public Employee getEmpByLastName(@PathVariable("lastName") String lastName) {
+        Employee empByLastName = employeeService.getEmpByLastName(lastName);
+        return empByLastName;
     }
 }
