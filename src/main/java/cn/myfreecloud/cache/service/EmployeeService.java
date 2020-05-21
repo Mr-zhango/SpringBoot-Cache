@@ -48,8 +48,16 @@ public class EmployeeService {
 
     /**
      * @CacheEvict: 清除缓存
+     *
+     * 清空改value的所有缓存
+     * 参数:
+     *      allEntries = true
+     *      beforeInvocation = true 默认是false,
+     *          如果指定为 true      就是在方法还没有执行的时候就清空缓存,
+     *          默认为 false         如果方法抛出异常,则不会清空缓存
+     *
      */
-    @CacheEvict(value = {"emp"}, key = "#a0")
+    @CacheEvict(value = {"emp"}, key = "#a0",allEntries = true,beforeInvocation = false)
     public void deleteEmpById(Integer id) {
 
         System.out.println("deleteEmp:id=" + id);
