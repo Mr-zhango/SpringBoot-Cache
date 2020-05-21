@@ -2,8 +2,10 @@ package cn.myfreecloud.cache.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class Employee {
+public class Employee implements Serializable {
 
     private Integer id;
 
