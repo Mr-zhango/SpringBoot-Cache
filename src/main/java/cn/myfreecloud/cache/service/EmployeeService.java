@@ -3,6 +3,8 @@ package cn.myfreecloud.cache.service;
 import cn.myfreecloud.cache.bean.Employee;
 import cn.myfreecloud.cache.mapper.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +21,38 @@ public class EmployeeService {
     // key:
     //      Entry里面的key 默认是 SimpleKeyGenerator 生成的,也可以使用SpEL表达式来生成 #a0 #p0 #root.args[0] #id
 
+    // condition:指定符合条件的情况下才缓存
+    // condition = "#a0>1" id > 1 的情况下才进行缓存
+    // unless:和unless用法刚好相反
+    // sync:是否使用异步模式
 
     // 使用spEL表达式 指定使用参数的第一个参数作为key ==  key = "#p0"
-    @Cacheable(value = {"emp"},keyGenerator = "myKeyGenerator")
+    @Cacheable(value = {"emp"}, key = "#root.args[0]")
     public Employee getEmpById(Integer id) {
         Employee employeeById = employeeMapper.getEmployeeById(id);
         return employeeById;
+    }
+
+    /**
+     * @param employee
+     * @return
+     * @CachePut : 既调用方法,也会更新缓存
+     * 修改数据库的数据,同时更新缓存
+     */
+    @CachePut(value = {"emp"}, key = "#result.id")
+    public Employee updateEmpById(Employee employee) {
+        System.out.println("update:" + employee);
+        employeeMapper.updateEmployee(employee);
+        return employee;
+    }
+
+    /**
+     * @CacheEvict: 清除缓存
+     */
+    @CacheEvict(value = {"emp"}, key = "#a0")
+    public void deleteEmpById(Integer id) {
+
+        System.out.println("deleteEmp:id=" + id);
+        //employeeMapper.deleteEmployee(id);
     }
 }

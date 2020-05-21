@@ -9,10 +9,10 @@ public interface EmployeeMapper {
     @Select("select * from employee where id = #{id}")
     public Employee getEmployeeById(Integer id);
 
-    @Insert("insert into employee (lastName,email,gender,departmentId values(#{lastName},#{email},#{gender},#{departmentId}))")
+    @Insert("insert into employee (last_name,email,gender,department_id values(#{lastName},#{email},#{gender},#{departmentId}))")
     public void insertEmployee(Employee employee);
 
-    @Update("update employee set lastName = #{lastName} ,email = #{email},gender = #{gender},departmentId = #{departmentId}")
+    @Update("update employee set last_name = #{lastName} ,email = #{email},gender = #{gender},department_id = #{departmentId} where id = #{id}")
     public void updateEmployee(Employee employee);
 
     @Delete("delete from employee where id = #{id}")

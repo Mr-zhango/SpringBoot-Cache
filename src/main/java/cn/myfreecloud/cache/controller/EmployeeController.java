@@ -1,7 +1,6 @@
 package cn.myfreecloud.cache.controller;
 
 import cn.myfreecloud.cache.bean.Employee;
-import cn.myfreecloud.cache.mapper.EmployeeMapper;
 import cn.myfreecloud.cache.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,17 @@ public class EmployeeController {
 
     @GetMapping("/getEmployee")
     public Employee getEmployee(Integer id) {
-        System.out.println("查询员工"+id);
+        System.out.println("查询员工" + id);
         return employeeService.getEmpById(id);
+    }
+
+    @GetMapping("/updateEmployee")
+    public Employee updateEmployee(Employee employee) {
+        return employeeService.updateEmpById(employee);
+    }
+
+    @GetMapping("/deleteEmployee")
+    public void deleteEmployee(Integer id) {
+        employeeService.deleteEmpById(id);
     }
 }
