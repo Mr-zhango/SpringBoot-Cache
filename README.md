@@ -1,1 +1,3 @@
 # SpringBoot-Cache
+以json的形式存储进redis
+使用reids进行默认的缓存方案,替代了原来默认的CurrentHashMap
